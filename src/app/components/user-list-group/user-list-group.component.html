@@ -1,0 +1,41 @@
+<div class="user-list-group">
+  @if (isAllUsersSelected()) {
+    <article class="user-list-group__article">
+      <cdk-virtual-scroll-viewport
+        itemSize="50"
+        class="user-list-group__viewport"
+      >
+        <div
+          *cdkVirtualFor="let user of users()"
+          class="user-list-group__viewport-item"
+        >
+          <app-user-item [user]="user" [allUsers]="users()" />
+        </div>
+      </cdk-virtual-scroll-viewport>
+    </article>
+  } @else {
+    @for (header of headers(); track header) {
+      @if (
+        selectedGroupOption() === GROUP_BY.NATIONALITY &&
+        !!usersFromCurrentGroup()?.[header]
+      ) {
+        <h3>{{ usersFromCurrentGroup()![header][0].country }}</h3>
+      } @else if (!!usersFromCurrentGroup()?.[header]) {
+        <h3>{{ header | formatString }}</h3>
+      }
+      <article class="user-list-group__article">
+        <cdk-virtual-scroll-viewport
+          itemSize="50"
+          class="user-list-group__viewport"
+        >
+          <div
+            *cdkVirtualFor="let user of usersFromCurrentGroup()?.[header] ?? []"
+            class="user-list-group__viewport-item"
+          >
+            <app-user-item [user]="user" [allUsers]="users()" />
+          </div>
+        </cdk-virtual-scroll-viewport>
+      </article>
+    }
+  }
+</div>

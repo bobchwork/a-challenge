@@ -1,2 +1,58 @@
 /* You can add global styles to this file, and also import other style files */
-@import 'ease/ease-styles';
+@import "ease/ease-styles";
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.main-container {
+  background-color: white;
+  width: 80%;
+  max-width: 950px;
+  margin: 0 auto;
+  padding: 40px;
+}
+
+button {
+  padding: 10px 15px;
+  border-radius: 14px;
+  background-color: rgb(158, 0, 158);
+  color: white;
+  font-weight: 800;
+  border-width: 0px;
+  transition: background-color 0.5s ease-in-out;
+  &:hover {
+    cursor: pointer;
+    background-color: rgb(192, 5, 192);
+  }
+}
+
+input {
+  border-radius: 14px;
+  background-color: #fdfdfd;
+  border-color: #aaaaaa;
+  padding: 10px 15px;
+  border-style: solid;
+  border-width: thin;
+}
+
+select {
+  height: auto;
+  padding: 10px 15px;
+  font-size: 14px;
+  cursor: pointer;
+  font-weight: 400;
+  color: #222222;
+  background-color: #fdfdfd;
+  border: 1px solid #aaaaaa;
+  border-radius: 14px;
+  &:focus {
+    box-shadow: none;
+    border: 1px solid #aaaaaa;
+  }
+}

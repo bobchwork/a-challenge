@@ -1,0 +1,22 @@
+@import "ease/ease-import.scss";
+:host {
+  .user-list-group {
+    &__article {
+      background-color: $color-white;
+      border-radius: 18px;
+      border: 6px solid $color-sky;
+      display: flex;
+      flex-direction: column;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    &__viewport {
+      height: 60vh;
+      width: 100%;
+    }
+    &__viewport-item {
+      height: 60px;
+    }
+  }
+}

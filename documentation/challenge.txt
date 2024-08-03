@@ -1,0 +1,36 @@
+Goal
+Given an initial application which consumes a public Users API and displays them in a list, implement all the requirements detailed below.
+ The main goal of this challenge is to improve the performance and add missing featuresto the existing application.
+
+
+Requirements
+The application should:
+Show a list of users grouped by a specific category.
+The grouping of the array of Users should be done via a Web Worker.
+Criteria can be chosen: alphabetically, age, nationality, etc.
+[Bonus Point] Add a button which switches the grouping between multiple categories.
+Groups should look nice in the UI
+CHECK BELOW: Idea of result (Don’t limit yourself to this idea, make it look awesome!).
+Show 5000 Users on the page with good load and runtime performance without using pagination (even in mobile devices).
+Improve components performance.
+The page should load fast.
+The page should be interactive fast.
+No performance degradation when interacting with the page.
+Optimize device resources usage: CPU, memory.
+When clicking on a User from the list, the item should expand inside the same list with a cool animation and show extra information the API provides in a nice and clear way.
+Feel free to choose the information you display.
+Improve the overall UI/UX of the app until you are proud of it. The code provided already has some basic styles which are coming from our original awork app, but it still deserves some love.
+Make it look awesome by, for example, adding a header for the list columns, an improved loading state, etc.
+Here you can be creative about it, the sky is the limit!
+Write a documentation on how you approached the problem and what the solution consists of.
+[Bonus Point] Search users without using API.
+[Bonus Point] Add pagination using the page size of 5000 items
+The API documentation has the information on how to do this.
+
+
+Deliverables:
+
+Source Code: Use git and share a repository via GitHub with sebastianrosch, marcelotedeschi and santiagof4 .
+Feature Documentation: A summary of the solution and argumentation for the decisions made. You can choose which format you use (PDF, Notion, Slack Message, etc.)
+Readme: add a Readme with instructions on how to setup and run the application as well as any information you judge important for a Readme document.
+[Bonus point]: Run the full application on a cloud solution for previewing live via a link

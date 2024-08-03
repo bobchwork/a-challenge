@@ -1,11 +1,28 @@
-@if (users().length) {
-  <article class="user-list">
-    @for (user of users(); track $index) {
-      <app-user-item [user]="user" [allUsers]="users()" />
-    }
-  </article>
-} @else {
-  <article class="user-list">
-    <p>Loading…</p>
-  </article>
-}
+<div class="user-list">
+  @if (users().length > 0 && !isLoading()) {
+    <div class="user-list__filter">
+      <div class="user-list__header">
+        <h2>{{ header() }}</h2>
+      </div>
+      <div class="user-list__controls">
+        <app-user-list-controls
+          [userGroups]="usersGroup()"
+          (valuesChanged)="selectedValueChanged($event)"
+        ></app-user-list-controls>
+      </div>
+    </div>
+    <app-user-list-group
+      [usersGroups]="usersGroup()"
+      [users]="users()"
+      [selectedGroupOption]="groupBy()"
+    ></app-user-list-group>
+  } @else if (users().length === 0 && !isLoading()) {
+    <article class="user-list__article">
+      <p class="user-list__message">No users found.</p>
+    </article>
+  } @else {
+    <article class="user-list__message">
+      <p>Loading…</p>
+    </article>
+  }
+</div>

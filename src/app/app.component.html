@@ -2,4 +2,6 @@
   <img src="logo.svg" alt="awork logo" />
 </header>
 
-<app-user-list [users]="users"></app-user-list>
+<div class="main-container">
+  <app-user-list [usersGroup]="groupsSignal()" [users]="users" [isLoading]="isLoading"></app-user-list>
+</div>
