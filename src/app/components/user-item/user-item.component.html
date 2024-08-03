@@ -1,13 +1,24 @@
-<div class="user-item">
-  <img class="user-item__image" [src]="user().imageSrc" />
+<div class="user-item" [ngClass]="{ 'user-item--expanded': isExpanded() }">
+  <div class="user-item__wrapper">
+    <div class="user-item__main-info-wrapper">
+      <img class="user-item__image" [src]="user().imageSrc || user().image" />
 
-  <p class="user-item__name">
-    {{ user().firstname }} {{ user().lastname }}
-  </p>
+      <p class="user-item__name">
+        {{ user().firstname }} {{ user().lastname }}
+      </p>
 
-  <p class="user-item__email">{{ user().email }}</p>
+      <p class="user-item__email">{{ user().email }}</p>
 
-  <p class="user-item__phone">{{ user().phone }}</p>
+      <p class="user-item__phone">{{ user().phone }}</p>
 
-  <p class="user-item__nat">{{ user().nat }} ({{ nationalitiesCount }})</p>
+      <p class="user-item__nat">{{ user().nat }} ({{ nationalitiesCount }})</p>
+    </div>
+    @if (isExpanded()) {
+      <div class="user-item__additional-info-wrapper">
+        <p class="user-item__country">Country: {{ user().country }}</p>
+        <p class="user-item__age">Age: {{ user().age }}</p>
+        <p class="user-item__date">Birth date: {{ user().date | date }}</p>
+      </div>
+    }
+  </div>
 </div>

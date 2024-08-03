@@ -22,11 +22,8 @@ export class UsersService {
     // seed=awork. Seeds allow you to always generate the same set of users
     return this.httpClient
       .get<ApiResult>(
-        `${this.apiUrl}?results=${usersPerPage}&seed=awork&page=${page}`
+        `${this.apiUrl}?results=${usersPerPage}&seed=awork&page=${page}`,
       )
       .pipe(map((apiResult) => User.mapFromUserResult(apiResult.results)));
   }
-
-  /*   // Divides the task of fetching users into several  chunks:
-  getUsersOptimized(): Observable<User[]> {} */
 }

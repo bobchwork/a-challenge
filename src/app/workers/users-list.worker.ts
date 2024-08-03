@@ -13,6 +13,7 @@ addEventListener('message', ({ data }: MessageEvent<User[]>) => {
 });
 
 const groupAlphabetically = (users: User[]): { [key: string]: User[] } => {
+  //TODO: check if the first letter is from the latin alphabet and sort by lastname
   return users.reduce(
     (usersAcc, user) => {
       if (user.lastname) {

@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { User } from '../../models/user.model';
 
@@ -6,11 +7,13 @@ import { User } from '../../models/user.model';
   standalone: true,
   templateUrl: './user-item.component.html',
   styleUrl: './user-item.component.scss',
+  imports: [CommonModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserItemComponent {
   public user = input.required<User>();
   public allUsers = input.required<User[]>();
+  public isExpanded = input(false);
 
   /**
    * Get the count of users with same nationality
