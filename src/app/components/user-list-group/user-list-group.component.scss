@@ -17,6 +17,13 @@
     }
     &__viewport-item {
       height: 60px;
+      @include ease-out-animation();
+      &--expanded {
+        height: $list-item-height;
+      }
+    }
+    &__headline {
+      padding: 14px;
     }
   }
 }

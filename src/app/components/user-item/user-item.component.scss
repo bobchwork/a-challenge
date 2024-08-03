@@ -1,8 +1,8 @@
-@import 'ease/ease-import.scss';
+@import "ease/ease-import.scss";
 
 :host {
   .user-item {
-    align-items: center;
+    align-items: baseline;
     border-bottom: 1px solid $color-fog;
     box-sizing: border-box;
     display: flex;
@@ -10,6 +10,38 @@
     height: 60px;
     padding: 12px;
     color: $color-night;
+    @include ease-out-animation();
+    &__wrapper {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+
+    &__additional-info-wrapper,
+    &__main-info-wrapper {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: center;
+      width: 100%;
+      padding-bottom: 10px;
+    }
+    &__additional-info-wrapper {
+      padding-top: 10px;
+      border-top: thin solid #aaaaaa;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      p {
+        margin-bottom: 5px;
+      }
+    }
+    &--expanded {
+      height: $list-item-height;
+    }
+    &:hover {
+      @include hover-row();
+      cursor: pointer;
+    }
 
     &__image {
       border-radius: 20%;
@@ -38,6 +70,13 @@
 
     &__phone {
       width: 110px;
+    }
+
+    &__country {
+      width: 220px;
+    }
+    &__age {
+      width: 80px;
     }
 
     &__nat {

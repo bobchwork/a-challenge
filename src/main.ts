@@ -4,7 +4,7 @@ import { AppComponent } from './app/app.component';
 import { environment } from './environments/environment';
 
 // Register service worker, only if supported by the browser. Here we add the condition to validate it is PROD
-if (environment.production) {
+if (environment.production && environment.enableCache) {
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
       navigator.serviceWorker

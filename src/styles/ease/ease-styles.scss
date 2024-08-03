@@ -3,9 +3,9 @@
  * It should never be imported more than once! ☝️
  */
 
-@import './_reset.scss';
-@import './_colors.scss';
-@import './_typography.scss';
+@import "./_reset.scss";
+@import "./_colors.scss";
+@import "./_typography.scss";
 
 body,
 html {
@@ -23,4 +23,5 @@ body {
   background-color: #e0d7fe;
   background-size: cover;
   min-height: 100vh;
+  background-attachment: fixed;
 }

@@ -45,18 +45,18 @@ $color-asphalt: var(--color-asphalt) !default;
 $color-night: var(--color-night) !default;
 
 $gray-colors: (
-  'white': $color-white,
-  'smoke': $color-smoke,
-  'ice': $color-ice,
-  'sky': $color-sky,
-  'fog': $color-fog,
-  'dust': $color-dust,
-  'light-steel': $color-light-steel,
-  'steel': $color-steel,
-  'slate': $color-slate,
-  'midnight': $color-midnight,
-  'asphalt': $color-asphalt,
-  'night': $color-night
+  "white": $color-white,
+  "smoke": $color-smoke,
+  "ice": $color-ice,
+  "sky": $color-sky,
+  "fog": $color-fog,
+  "dust": $color-dust,
+  "light-steel": $color-light-steel,
+  "steel": $color-steel,
+  "slate": $color-slate,
+  "midnight": $color-midnight,
+  "asphalt": $color-asphalt,
+  "night": $color-night,
 ) !default;
 
 // Main colors
@@ -166,84 +166,93 @@ $color-teal-o-100: rgba(#9bf2d2, 0.2) !default;
 $color-teal-o-300: rgba(#9bf2d2, 0.4) !default;
 
 $text-colors: (
-  'red': $color-red-900,
-  'green': $color-green-900,
-  'blue': $color-blue-900,
-  'yellow': $color-yellow-900,
-  'purple': $color-purple-900,
-  'orange': $color-orange-900,
-  'cyan': $color-cyan-900,
-  'indigo': $color-indigo-900,
-  'teal': $color-teal-900
+  "red": $color-red-900,
+  "green": $color-green-900,
+  "blue": $color-blue-900,
+  "yellow": $color-yellow-900,
+  "purple": $color-purple-900,
+  "orange": $color-orange-900,
+  "cyan": $color-cyan-900,
+  "indigo": $color-indigo-900,
+  "teal": $color-teal-900,
 ) !default;
 
 $border-colors: (
-  'red': $color-red-700,
-  'green': $color-green-700,
-  'blue': $color-blue-700,
-  'yellow': $color-yellow-700,
-  'purple': $color-purple-700,
-  'orange': $color-orange-700,
-  'cyan': $color-cyan-700,
-  'indigo': $color-indigo-700,
-  'teal': $color-teal-700,
-  'white': $color-white,
-  'smoke': $color-smoke,
-  'ice': $color-ice,
-  'sky': $color-sky,
-  'fog': $color-fog,
-  'dust': $color-dust,
-  'light-steel': $color-light-steel,
-  'steel': $color-steel,
-  'slate': $color-slate,
-  'midnight': $color-midnight,
-  'asphalt': $color-asphalt,
-  'night': $color-night
+  "red": $color-red-700,
+  "green": $color-green-700,
+  "blue": $color-blue-700,
+  "yellow": $color-yellow-700,
+  "purple": $color-purple-700,
+  "orange": $color-orange-700,
+  "cyan": $color-cyan-700,
+  "indigo": $color-indigo-700,
+  "teal": $color-teal-700,
+  "white": $color-white,
+  "smoke": $color-smoke,
+  "ice": $color-ice,
+  "sky": $color-sky,
+  "fog": $color-fog,
+  "dust": $color-dust,
+  "light-steel": $color-light-steel,
+  "steel": $color-steel,
+  "slate": $color-slate,
+  "midnight": $color-midnight,
+  "asphalt": $color-asphalt,
+  "night": $color-night,
 ) !default;
 
 $bg-colors: (
-  'red': $color-red-o-50,
-  'green': $color-green-o-50,
-  'blue': $color-blue-o-50,
-  'yellow': $color-yellow-o-50,
-  'purple': $color-purple-o-50,
-  'orange': $color-orange-o-50,
-  'cyan': $color-cyan-o-50,
-  'indigo': $color-indigo-o-50,
-  'teal': $color-teal-o-50,
-  'white': $color-white,
-  'smoke': $color-smoke,
-  'ice': $color-ice,
-  'sky': $color-sky,
-  'fog': $color-fog,
-  'dust': $color-dust,
-  'light-steel': $color-light-steel,
-  'steel': $color-steel,
-  'slate': $color-slate,
-  'midnight': $color-midnight,
-  'asphalt': $color-asphalt,
-  'night': $color-night
+  "red": $color-red-o-50,
+  "green": $color-green-o-50,
+  "blue": $color-blue-o-50,
+  "yellow": $color-yellow-o-50,
+  "purple": $color-purple-o-50,
+  "orange": $color-orange-o-50,
+  "cyan": $color-cyan-o-50,
+  "indigo": $color-indigo-o-50,
+  "teal": $color-teal-o-50,
+  "white": $color-white,
+  "smoke": $color-smoke,
+  "ice": $color-ice,
+  "sky": $color-sky,
+  "fog": $color-fog,
+  "dust": $color-dust,
+  "light-steel": $color-light-steel,
+  "steel": $color-steel,
+  "slate": $color-slate,
+  "midnight": $color-midnight,
+  "asphalt": $color-asphalt,
+  "night": $color-night,
 ) !default;
 
 /*
  * GRADIENTS
  */
 
-$gradient-purple: linear-gradient(135deg, #e0d7fe 0%, #efdaf6 53%, #fdf3e9 100%);
+$gradient-purple: linear-gradient(
+  135deg,
+  #e0d7fe 0%,
+  #efdaf6 53%,
+  #fdf3e9 100%
+);
 $gradient-onboarding: linear-gradient(
     135deg,
     rgba(190, 171, 255, 1) 0%,
     rgba(199, 154, 250, 1) 53%,
     rgba(255, 240, 203, 1) 100%
   ),
-  linear-gradient(45deg, rgba(218, 117, 253, 0) 0%, rgba(218, 117, 253, 0.5) 100%),
+  linear-gradient(
+    45deg,
+    rgba(218, 117, 253, 0) 0%,
+    rgba(218, 117, 253, 0.5) 100%
+  ),
   radial-gradient(rgba(255, 240, 200, 0.5), rgba(255, 229, 163, 0));
 
 /*
  * FONT SIZES
  */
 
-$font-family: 'Sofia Pro', sofia-pro, sans-serif !default;
+$font-family: "Sofia Pro", sofia-pro, sans-serif !default;
 
 $font-size-normal: 14px !default;
 $line-height-normal: 20px !default;
@@ -282,7 +291,7 @@ $breakpoints: (
   s: $s,
   m: $m,
   l: $l,
-  xl: $xl
+  xl: $xl,
 ) !default;
 
 /*
@@ -308,7 +317,7 @@ $spacings: (
   xl: $spacing-xl,
   xxl: $spacing-xxl,
   xxxl: $spacing-xxxl,
-  xxxxl: $spacing-xxxxl
+  xxxxl: $spacing-xxxxl,
 ) !default;
 
 $mobile-content-spacing: 10px !default;
@@ -329,7 +338,7 @@ $icon-sizes: (
   m: $icon-size-m,
   l: $icon-size-l,
   xl: $icon-size-xl,
-  xxl: $icon-size-xxl
+  xxl: $icon-size-xxl,
 ) !default;
 
 /*
@@ -350,5 +359,11 @@ $border-sizes: (
   l: $border-size-l,
   xl: $border-size-xl,
   xxl: $border-size-xxl,
-  xxxl: $border-size-xxxl
+  xxxl: $border-size-xxxl,
 ) !default;
+
+/*
+ * CUSTOM VARIABLES
+ */
+
+$list-item-height: 180px;

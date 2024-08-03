@@ -14,7 +14,6 @@ export type UsersGroups = {
   age?: UserGroup;
 };
 
-
 export class User {
   firstname?: string;
   lastname?: string;
@@ -25,6 +24,7 @@ export class User {
   country?: string;
   login?: LoginInfo;
   age?: number;
+  date?: string;
 
   constructor(data: Partial<User> = {}) {
     Object.assign(this, data);
@@ -56,7 +56,8 @@ export class User {
           country: user.location.country,
           login: user.login,
           age: user.dob.age,
-        })
+          date: user.dob.date,
+        }),
     );
   }
 }
