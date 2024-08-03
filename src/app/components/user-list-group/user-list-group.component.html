@@ -52,7 +52,7 @@
               'user-list-group__viewport-item--expanded':
                 isExpanded() &&
                 expandedIndex() === i &&
-                comparedUserId(user.login.uuid, i),
+                user.login.uuid === selectedItemUIID(),
             }"
           >
             <app-user-item
@@ -60,7 +60,7 @@
               [isExpanded]="
                 isExpanded() &&
                 expandedIndex() === i &&
-                comparedUserId(user.login.uuid, i)
+                user.login.uuid === selectedItemUIID()
               "
               (click)="itemClick(i)"
               [allUsers]="users()"

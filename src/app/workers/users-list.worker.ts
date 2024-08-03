@@ -9,15 +9,16 @@ addEventListener('message', ({ data }: MessageEvent<User[]>) => {
   usersGroups.nationality = groupByNationality(data);
   usersGroups.age = groupByAge(data);
 
+  const p = sortAlphabetically(usersGroups.alphabetically);
+
   postMessage(usersGroups);
 });
 
 const groupAlphabetically = (users: User[]): { [key: string]: User[] } => {
-  //TODO: check if the first letter is from the latin alphabet and sort by lastname
-  return users.reduce(
+  const alphabetObject = users.reduce(
     (usersAcc, user) => {
-      if (user.lastname) {
-        const key = user.lastname.charAt(0).toUpperCase();
+      if (user.firstname) {
+        const key = user.firstname.charAt(0).toUpperCase();
         if (!usersAcc[key]) {
           usersAcc[key] = [];
         }
@@ -27,7 +28,32 @@ const groupAlphabetically = (users: User[]): { [key: string]: User[] } => {
     },
     {} as { [key: string]: User[] },
   );
+
+  //The endpoint might return names that do not start with a latin letters.
+  return sortAlphabetically(alphabetObject);
 };
+
+const sortAlphabetically = (alphabetObject: {
+  [key: string]: User[];
+}): { [key: string]: User[] } => {
+  const latinAlphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+  const latinAlphabetObj: { [key: string]: User[] } = {};
+  const nonLatinAlphabetObj: { [key: string]: User[] } = {};
+  Object.keys(alphabetObject).forEach((key: string) => {
+    if (latinAlphabet.includes(key)) {
+      latinAlphabetObj[key] = alphabetObject[key];
+    } else {
+      nonLatinAlphabetObj[key] = alphabetObject[key];
+    }
+  });
+
+  const sortedObj = {
+    ...latinAlphabetObj,
+    ...nonLatinAlphabetObj,
+  };
+  return sortedObj;
+};
+
 const groupByNationality = (users: User[]): { [key: string]: User[] } => {
   return users.reduce(
     (usersAcc, user) => {
@@ -45,7 +71,7 @@ const groupByNationality = (users: User[]): { [key: string]: User[] } => {
 };
 
 const groupByAge = (users: User[]): { [key: string]: User[] } => {
-  return users.reduce(
+  const ageGroup = users.reduce(
     (usersAcc, user) => {
       if (user.age) {
         const key = getAgeRange(user.age);
@@ -58,6 +84,14 @@ const groupByAge = (users: User[]): { [key: string]: User[] } => {
     },
     {} as { [key: string]: User[] },
   );
+  const sortedAgeGroup: { [key: string]: User[] } = {};
+  const ageRanges = Object.values(AGE_RANGE);
+  ageRanges.forEach((key: string) => {
+    if (ageGroup[key]) {
+      sortedAgeGroup[key] = ageGroup[key];
+    }
+  });
+  return sortedAgeGroup;
 };
 
 const getAgeRange = (age: number): AGE_RANGE => {

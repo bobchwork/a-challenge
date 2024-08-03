@@ -36,6 +36,22 @@ export class UserListGroupComponent {
       this.selectedGroupOption() !== GROUP_BY.AGE_RANGE,
   );
 
+  public readonly selectedItemUIID = computed((): string => {
+    const key = this.selectedHeader();
+    const currentGroup = this.usersFromCurrentGroup();
+    const index = this.expandedIndex();
+    if (
+      !key ||
+      !currentGroup ||
+      !currentGroup[key] ||
+      index === null ||
+      currentGroup[key][index] === undefined
+    ) {
+      return '';
+    }
+    return currentGroup[key][index]?.login?.uuid || '';
+  });
+
   public usersFromCurrentGroup = computed(() => {
     if (this.selectedGroupOption() === GROUP_BY.ALPHABET) {
       return this.usersGroups()?.alphabetically;
@@ -61,15 +77,6 @@ export class UserListGroupComponent {
       : headers.sort();
   });
 
-  private openItem(index: number): void {
-    this.expandedIndex.set(index);
-    this.isExpanded.set(true);
-  }
-  private closeItem(): void {
-    this.expandedIndex.set(null);
-    this.isExpanded.set(false);
-  }
-
   public itemClick(index: number): void {
     if (this.isExpanded() && index !== this.expandedIndex()) {
       this.closeItem();
@@ -85,12 +92,12 @@ export class UserListGroupComponent {
     this.selectedHeader.set(header);
   }
 
-  public comparedUserId(comparedUserId: string, index: number): boolean {
-    const key = this.selectedHeader();
-    const currentGroup = this.usersFromCurrentGroup();
-    if (!key || !currentGroup || !currentGroup[key]) {
-      return false;
-    }
-    return comparedUserId === currentGroup[key][index]?.login?.uuid;
+  private openItem(index: number): void {
+    this.expandedIndex.set(index);
+    this.isExpanded.set(true);
+  }
+  private closeItem(): void {
+    this.expandedIndex.set(null);
+    this.isExpanded.set(false);
   }
 }
