@@ -6,14 +6,14 @@ import {
   computed,
   inject,
   input,
+  output,
   signal,
 } from '@angular/core';
-import { User, UsersGroups } from '../../models/user.model';
+import { GROUP_BY } from '../../consts';
+import { UsersStore } from '../../stores/users.store';
 import { UserItemComponent } from '../user-item/user-item.component';
 import { UserListControlsComponent } from '../user-list-controls/user-list-controls.component';
-import { GROUP_BY } from '../../consts';
 import { UserListGroupComponent } from '../user-list-group/user-list-group.component';
-import { UsersStore } from '../../stores/users.store';
 
 @Component({
   selector: 'app-user-list',
@@ -31,6 +31,8 @@ import { UsersStore } from '../../stores/users.store';
 export class UserListComponent {
   public usersStore = inject(UsersStore);
   public isLoading = input<boolean>(false);
+  public prevOnClicked = output<void>();
+  public nextOnClicked = output<void>();
 
   public readonly header = computed(() => {
     if (this.usersStore.groupBy() === GROUP_BY.ALPHABET) {

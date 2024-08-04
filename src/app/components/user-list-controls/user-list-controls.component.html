@@ -18,3 +18,10 @@
     </button>
   </form>
 </div>
+<div class="user-list-controls__paginator">
+  <app-paginator
+    [currentPage]="usersStore.currentPage()"
+    (nextClicked)="nextClicked()"
+    (prevClicked)="prevClicked()"
+  ></app-paginator>
+</div>

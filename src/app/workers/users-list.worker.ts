@@ -5,6 +5,7 @@ import { User, UsersGroups } from '../models/user.model';
 
 const usersGroups: UsersGroups = {};
 addEventListener('message', ({ data }: MessageEvent<User[]>) => {
+  console.log('Calculating groups...');
   usersGroups.alphabetically = groupAlphabetically(data);
   usersGroups.nationality = groupByNationality(data);
   usersGroups.age = groupByAge(data);

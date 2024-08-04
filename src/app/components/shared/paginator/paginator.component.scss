@@ -1,0 +1,27 @@
+@import "ease/ease-import.scss";
+.paginator {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+  gap: 1.25rem;
+  &__item-wrapper {
+    width: 20px;
+    text-align: center;
+  }
+  &__item,
+  &__prev,
+  &__next {
+    padding: 10px;
+    color: black;
+  }
+  &__prev,
+  &__next {
+    @include button-style();
+    padding: 5px 10px;
+
+    &:hover {
+      @include button-hover-style();
+    }
+  }
+}

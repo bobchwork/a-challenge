@@ -20,15 +20,10 @@ body {
 
 button {
   padding: 10px 15px;
-  border-radius: 14px;
-  background-color: rgb(158, 0, 158);
-  color: white;
-  font-weight: 800;
   border-width: 0px;
-  transition: background-color 0.5s ease-in-out;
+  @include button-style();
   &:hover {
-    cursor: pointer;
-    background-color: rgb(192, 5, 192);
+    @include button-hover-style();
   }
 }
 

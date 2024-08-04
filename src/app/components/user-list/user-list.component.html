@@ -8,6 +8,8 @@
         <app-user-list-controls
           [userGroups]="usersStore.groups()"
           (valuesChanged)="selectedValueChanged($event)"
+          (nextOnClicked)="nextOnClicked.emit()"
+          (prevOnClicked)="prevOnClicked.emit()"
         ></app-user-list-controls>
       </div>
     </div>
@@ -18,7 +20,7 @@
     <article class="user-list__article">
       <p class="user-list__message">No users found.</p>
     </article>
-  } @else {
+  } @else if (isLoading()) {
     <article class="user-list__message">
       <p>Loading…</p>
     </article>

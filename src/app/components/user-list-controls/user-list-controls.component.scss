@@ -11,9 +11,10 @@
     align-items: center;
     justify-content: flex-end;
   }
-  @include media-breakpoint-down(m) {
-    &__form {
-      /* flex-direction: column; */
-    }
+  &__paginator {
+    display: flex;
+    padding-top: 12px;
+    width: 100%;
+    justify-content: flex-end;
   }
 }

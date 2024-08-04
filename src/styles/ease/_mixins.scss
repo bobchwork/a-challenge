@@ -283,3 +283,16 @@
     background: $color-indigo-o-50;
   }
 }
+
+@mixin button-style() {
+  cursor: pointer;
+  font-weight: 800;
+  color: white;
+  transition: background-color 0.5s ease-in-out;
+  border-radius: 14px;
+  background-color: rgb(158, 0, 158);
+}
+@mixin button-hover-style() {
+  cursor: pointer;
+  background-color: rgb(192, 5, 192);
+}
