@@ -25,7 +25,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-user-list-controls',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, PaginatorComponent],
   templateUrl: './user-list-controls.component.html',
   styleUrl: './user-list-controls.component.scss',
 })
@@ -37,6 +37,8 @@ export class UserListControlsComponent implements OnInit {
   public destroyRef = inject(DestroyRef);
   public userGroups = input<UsersGroups | null>();
   public valuesChanged = output<{ search: string; groupBy: GROUP_BY }>();
+  public nextOnClicked = output<void>();
+  public prevOnClicked = output<void>();
   public searchForm: FormGroup = this.formBuilder.group({
     search: [''],
     groupBy: [''],
@@ -78,5 +80,12 @@ export class UserListControlsComponent implements OnInit {
   public clearForm(): void {
     this.searchForm.patchValue({ search: '', groupBy: '' });
     this.toastr.success('Cleared!');
+  }
+
+  public nextClicked(): void {
+    this.nextOnClicked.emit();
+  }
+  public prevClicked(): void {
+    this.prevOnClicked.emit();
   }
 }

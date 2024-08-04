@@ -17,16 +17,12 @@ import { UsersGroups } from '../../models/user.model';
 import { UsersService } from '../../services/users.service';
 import { UsersStore } from '../../stores/users.store';
 import { PaginatorComponent } from '../../components/shared/paginator/paginator.component';
+import { CacheService } from '../../services/cache.service';
 
 @Component({
   selector: 'app-main',
   standalone: true,
-  imports: [
-    UserListComponent,
-    UserListControlsComponent,
-    RouterModule,
-    PaginatorComponent,
-  ],
+  imports: [UserListComponent, UserListControlsComponent, RouterModule],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss',
   providers: [UsersStore],
@@ -35,6 +31,7 @@ import { PaginatorComponent } from '../../components/shared/paginator/paginator.
 export class MainComponent implements OnInit {
   @Input() page?: string;
   public usersService = inject(UsersService);
+  public cacheService = inject(CacheService);
   public usersStore = inject(UsersStore);
   public router = inject(Router);
   public isLoading = signal(false);
@@ -72,19 +69,20 @@ export class MainComponent implements OnInit {
   private fetchUsers(page: number, pageSize: number): void {
     this.isLoading.set(true);
 
+    const parsedItems = this.cacheService.getCacheData();
+    const pageNumber = page || 1;
     // ONLY FOR DEVELOP. Not ideal, The service worker would be more efficient than this. localstorage has limitations.
-
     if (
-      (!page || page === 1) &&
       !environment.production &&
       environment.enableCache &&
-      localStorage.getItem('users')
+      parsedItems &&
+      parsedItems[pageNumber]
     ) {
       console.log(
         'This is a mock request. In a real-world application, the data would be fetched or returned by the service worker.',
         environment,
       );
-      this.usersStore.users.set(JSON.parse(localStorage.getItem('users')!));
+      this.usersStore.users.set(parsedItems[page]);
       this.isLoading.set(false);
       this.handleUsersListWorker();
       return;
@@ -99,17 +97,14 @@ export class MainComponent implements OnInit {
           // We can handle errors here. At the moment we just log the error
           console.log('Failed to fetch users', error);
           this.toastr.error('Failed to fetch users');
-          return of();
+          throw error;
         }),
       )
       .subscribe((users) => {
         this.usersStore.users.set(users);
-        localStorage.setItem('users', JSON.stringify(users));
+
+        this.cacheService.setCacheData(users, page);
         // Worker initialization
-        console.log(
-          'users list worker is initialized',
-          this.usersStore.users(),
-        );
         this.handleUsersListWorker();
       });
   }

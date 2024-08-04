@@ -8,6 +8,8 @@
         <app-user-list-controls
           [userGroups]="usersStore.groups()"
           (valuesChanged)="selectedValueChanged($event)"
+          (nextOnClicked)="nextOnClicked.emit()"
+          (prevOnClicked)="prevOnClicked.emit()"
         ></app-user-list-controls>
       </div>
     </div>

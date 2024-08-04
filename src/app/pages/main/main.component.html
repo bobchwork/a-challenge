@@ -1,11 +1,7 @@
 <div class="main-page">
-  <app-user-list [isLoading]="isLoading()"></app-user-list>
-
-  <div class="main-page__paginator">
-    <app-paginator
-      [currentPage]="usersStore.currentPage()"
-      (nextClicked)="nextClicked()"
-      (prevClicked)="prevClicked()"
-    ></app-paginator>
-  </div>
+  <app-user-list
+    [isLoading]="isLoading()"
+    (nextOnClicked)="nextClicked()"
+    (prevOnClicked)="prevClicked()"
+  ></app-user-list>
 </div>

@@ -6,6 +6,7 @@ import {
   computed,
   inject,
   input,
+  output,
   signal,
 } from '@angular/core';
 import { GROUP_BY } from '../../consts';
@@ -30,6 +31,8 @@ import { UserListGroupComponent } from '../user-list-group/user-list-group.compo
 export class UserListComponent {
   public usersStore = inject(UsersStore);
   public isLoading = input<boolean>(false);
+  public prevOnClicked = output<void>();
+  public nextOnClicked = output<void>();
 
   public readonly header = computed(() => {
     if (this.usersStore.groupBy() === GROUP_BY.ALPHABET) {
