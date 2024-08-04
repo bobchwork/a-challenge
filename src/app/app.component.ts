@@ -1,30 +1,34 @@
 import {
   Component,
+  Input,
   OnInit,
   WritableSignal,
   inject,
   signal,
 } from '@angular/core';
-import { catchError, finalize, of } from 'rxjs';
+import { catchError, combineLatest, finalize, forkJoin, of } from 'rxjs';
 import { UserListComponent } from './components/user-list/user-list.component';
 import { UsersGroups } from './models/user.model';
 import { UsersService } from './services/users.service';
 import { UserListControlsComponent } from './components/user-list-controls/user-list-controls.component';
 import { environment } from '../environments/environment';
+import { UsersStore } from './stores/users.store';
+import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [UserListComponent, UserListControlsComponent],
+  imports: [UserListComponent, UserListControlsComponent, RouterModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
+  providers: [UsersStore],
 })
 export class AppComponent implements OnInit {
+  @Input() page?: string;
   public usersService = inject(UsersService);
-
-  public users: any[] = [];
+  public usersStore = inject(UsersStore);
   public isLoading = false;
-  public groupsSignal: WritableSignal<UsersGroups | null> = signal(null);
 
   private usersListWorker!: Worker;
 
@@ -35,13 +39,17 @@ export class AppComponent implements OnInit {
     this.usersListWorker = new Worker(
       new URL('./workers/users-list.worker', import.meta.url),
     );
+    const page = this.page ? parseInt(this.page) : 1;
+    this.currentPage = this.page !== '' && !isNaN(page) ? page : 1;
     this.fetchUsers(this.currentPage, this.pageSize);
   }
 
   private handleUsersListWorker(): void {
-    this.usersListWorker.postMessage(this.users);
+    this.isLoading = true;
+    this.usersListWorker.postMessage(this.usersStore.allFilteredUsers());
     this.usersListWorker.onmessage = (event: MessageEvent<UsersGroups>) => {
-      this.groupsSignal.set(event.data);
+      this.usersStore.groups.set(event.data);
+      this.isLoading = false;
     };
   }
 
@@ -51,6 +59,7 @@ export class AppComponent implements OnInit {
     // ONLY FOR DEVELOP. Not ideal, The service worker would be more efficient than this. localstorage has limitations.
 
     if (
+      (!page || page === 1) &&
       !environment.production &&
       environment.enableCache &&
       localStorage.getItem('users')
@@ -59,7 +68,7 @@ export class AppComponent implements OnInit {
         'This is a mock request. In a real-world application, the data would be fetched or returned by the service worker.',
         environment,
       );
-      this.users = JSON.parse(localStorage.getItem('users')!);
+      this.usersStore.users.set(JSON.parse(localStorage.getItem('users')!));
       this.isLoading = false;
       this.handleUsersListWorker();
       return;
@@ -79,7 +88,7 @@ export class AppComponent implements OnInit {
         }),
       )
       .subscribe((users) => {
-        this.users = users;
+        this.usersStore.users.set(users);
         localStorage.setItem('users', JSON.stringify(users));
         // Worker initialization
         this.handleUsersListWorker();

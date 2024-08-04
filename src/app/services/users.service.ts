@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { User } from '../models/user.model';
 import { HttpClient } from '@angular/common/http';
@@ -9,9 +9,10 @@ import { environment } from '../../environments/environment';
   providedIn: 'root',
 })
 export class UsersService {
-  private apiUrl = environment.apiUrl;
+ 
 
-  constructor(private httpClient: HttpClient) {}
+  private apiUrl = environment.apiUrl;
+  private httpClient = inject(HttpClient);
 
   /**
    * Fetches 5000 mock users from the api

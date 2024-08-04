@@ -1,13 +1,13 @@
 <div class="user-list-group">
   <!-- All users: there is only one array -->
-  @if (isAllUsersSelected()) {
+  @if (usersStore.isAllUsersSelected()) {
     <article class="user-list-group__article">
       <cdk-virtual-scroll-viewport
         itemSize="50"
         class="user-list-group__viewport"
       >
         <div
-          *cdkVirtualFor="let user of users(); index as i"
+          *cdkVirtualFor="let user of usersStore.allFilteredUsers(); index as i"
           class="user-list-group__viewport-item"
           [ngClass]="{
             'user-list-group__viewport-item--expanded':
@@ -18,7 +18,7 @@
             [isExpanded]="isExpanded() && expandedIndex() === i"
             [user]="user"
             (click)="itemClick(i)"
-            [allUsers]="users()"
+            [allUsers]="usersStore.users()"
           />
         </div>
       </cdk-virtual-scroll-viewport>
@@ -26,48 +26,54 @@
   } @else {
     <!-- Grouped users: it is an array of objects with different keys depending on the grouped type.
       Each key (header) has an array of users -->
+
     @for (header of headers(); track header) {
       @if (
-        selectedGroupOption() === GROUP_BY.NATIONALITY &&
-        !!usersFromCurrentGroup()?.[header]
+        !!usersFromCurrentGroup()?.[header] &&
+        (usersFromCurrentGroup()?.[header])!.length > 0
       ) {
-        <h3 class="user-list-group__headline">
-          {{ usersFromCurrentGroup()![header][0].country }}
-        </h3>
-      } @else if (!!usersFromCurrentGroup()?.[header]) {
-        <h3 class="user-list-group__headline">{{ header | formatString }}</h3>
-      }
-      <article class="user-list-group__article" (click)="articleClick(header)">
-        <cdk-virtual-scroll-viewport
-          itemSize="50"
-          class="user-list-group__viewport"
+        @if (usersStore.groupBy() === GROUP_BY.NATIONALITY) {
+          <h3 class="user-list-group__headline">
+            {{ usersFromCurrentGroup()![header][0].country }}
+          </h3>
+        } @else {
+          <h3 class="user-list-group__headline">{{ header | formatString }}</h3>
+        }
+        <article
+          class="user-list-group__article"
+          (click)="articleClick(header)"
         >
-          <div
-            *cdkVirtualFor="
-              let user of usersFromCurrentGroup()?.[header] ?? [];
-              index as i
-            "
-            class="user-list-group__viewport-item"
-            [ngClass]="{
-              'user-list-group__viewport-item--expanded':
-                isExpanded() &&
-                expandedIndex() === i &&
-                user.login.uuid === selectedItemUIID(),
-            }"
+           <cdk-virtual-scroll-viewport
+            itemSize="50"
+            class="user-list-group__viewport"
           >
-            <app-user-item
-              [user]="user"
-              [isExpanded]="
-                isExpanded() &&
-                expandedIndex() === i &&
-                user.login.uuid === selectedItemUIID()
+            <div
+              *cdkVirtualFor="
+                let user of usersFromCurrentGroup()?.[header] ?? [];
+                index as i
               "
-              (click)="itemClick(i)"
-              [allUsers]="users()"
-            />
-          </div>
-        </cdk-virtual-scroll-viewport>
-      </article>
+              class="user-list-group__viewport-item"
+              [ngClass]="{
+                'user-list-group__viewport-item--expanded':
+                  isExpanded() &&
+                  expandedIndex() === i &&
+                  user.login.uuid === selectedItemUIID(),
+              }"
+            >
+              <app-user-item
+                [user]="user"
+                [isExpanded]="
+                  isExpanded() &&
+                  expandedIndex() === i &&
+                  user.login.uuid === selectedItemUIID()
+                "
+                (click)="itemClick(i)"
+                [allUsers]="usersStore.users()"
+              />
+            </div>
+          </cdk-virtual-scroll-viewport> 
+        </article>
+      }
     }
   }
 </div>

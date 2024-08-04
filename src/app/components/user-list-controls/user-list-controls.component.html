@@ -1,7 +1,6 @@
 <div class="user-list-controls">
   <form class="user-list-controls__form" [formGroup]="searchForm">
     <input
-      [disabled]="isUserGroupsLoading()"
       placeholder="Search by name..."
       formControlName="search"
       class="user-list-controls__search"
@@ -10,7 +9,7 @@
     <select formControlName="groupBy" class="user-list-controls__group-by">
       <option value="">Group by</option>
       @for (group of groupByOptions(); track group) {
-      <option [value]="group.value">{{ group.label }}</option>
+        <option [value]="group.value">{{ group.label }}</option>
       }
     </select>
 
