@@ -4,6 +4,7 @@ import {
   Component,
   WritableSignal,
   computed,
+  inject,
   input,
   signal,
 } from '@angular/core';
@@ -12,6 +13,7 @@ import { UserItemComponent } from '../user-item/user-item.component';
 import { UserListControlsComponent } from '../user-list-controls/user-list-controls.component';
 import { GROUP_BY } from '../../consts';
 import { UserListGroupComponent } from '../user-list-group/user-list-group.component';
+import { UsersStore } from '../../stores/users.store';
 
 @Component({
   selector: 'app-user-list',
@@ -27,24 +29,21 @@ import { UserListGroupComponent } from '../user-list-group/user-list-group.compo
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserListComponent {
-  public users = input.required<User[]>();
+  public usersStore = inject(UsersStore);
   public isLoading = input<boolean>(false);
-  public usersGroup = input<UsersGroups | null>();
 
   public readonly header = computed(() => {
-    if (this.selectedValues()?.groupBy === GROUP_BY.ALPHABET) {
+    if (this.usersStore.groupBy() === GROUP_BY.ALPHABET) {
       return 'Grouped alphabetically';
-    } else if (this.selectedValues()?.groupBy === GROUP_BY.NATIONALITY) {
+    } else if (this.usersStore.groupBy() === GROUP_BY.NATIONALITY) {
       return 'Grouped by nationality';
-    } else if (this.selectedValues()?.groupBy === GROUP_BY.AGE_RANGE) {
+    } else if (this.usersStore.groupBy() === GROUP_BY.AGE_RANGE) {
       return 'Grouped by age range';
     }
     return 'All users';
   });
 
-  public readonly groupBy = computed(() => this.selectedValues()?.groupBy);
-
-  private selectedValues: WritableSignal<{
+  public selectedValues: WritableSignal<{
     groupBy?: GROUP_BY;
     search?: string;
   }> = signal({});
@@ -56,6 +55,7 @@ export class UserListComponent {
     search: string;
     groupBy: GROUP_BY;
   }): void {
-    this.selectedValues.set({ search, groupBy });
+    this.usersStore.searchTerm.set(search.toLowerCase());
+    this.usersStore.groupBy.set(groupBy);
   }
 }

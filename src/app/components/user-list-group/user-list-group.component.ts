@@ -1,11 +1,10 @@
-import { Component, computed, input, signal } from '@angular/core';
-import { User, UsersGroups } from '../../models/user.model';
-import { GROUP_BY } from '../../consts';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import { UserItemComponent } from '../user-item/user-item.component';
-import { FormatStringPipe } from '../../pipes/format-string.pipe';
-import { CustomPipesModule } from '../../pipes/custom-pipes/custom-pipes.module';
 import { CommonModule } from '@angular/common';
+import { Component, computed, inject, signal } from '@angular/core';
+import { GROUP_BY } from '../../consts';
+import { CustomPipesModule } from '../../pipes/custom-pipes/custom-pipes.module';
+import { UsersStore } from '../../stores/users.store';
+import { UserItemComponent } from '../user-item/user-item.component';
 
 @Component({
   selector: 'app-user-list-group',
@@ -20,21 +19,13 @@ import { CommonModule } from '@angular/common';
   styleUrl: './user-list-group.component.scss',
 })
 export class UserListGroupComponent {
-  public users = input.required<User[]>();
-  public usersGroups = input<UsersGroups | null>();
-  public selectedGroupOption = input<GROUP_BY | null>();
+  public usersStore = inject(UsersStore);
 
   public isExpanded = signal(false);
   public expandedIndex = signal<number | null>(null);
   public selectedHeader = signal<string | null>(null);
 
   public GROUP_BY = GROUP_BY;
-  public readonly isAllUsersSelected = computed(
-    () =>
-      this.selectedGroupOption() !== GROUP_BY.ALPHABET &&
-      this.selectedGroupOption() !== GROUP_BY.NATIONALITY &&
-      this.selectedGroupOption() !== GROUP_BY.AGE_RANGE,
-  );
 
   public readonly selectedItemUIID = computed((): string => {
     const key = this.selectedHeader();
@@ -51,14 +42,13 @@ export class UserListGroupComponent {
     }
     return currentGroup[key][index]?.login?.uuid || '';
   });
-
   public usersFromCurrentGroup = computed(() => {
-    if (this.selectedGroupOption() === GROUP_BY.ALPHABET) {
-      return this.usersGroups()?.alphabetically;
-    } else if (this.selectedGroupOption() === GROUP_BY.NATIONALITY) {
-      return this.usersGroups()?.nationality;
-    } else if (this.selectedGroupOption() === GROUP_BY.AGE_RANGE) {
-      return this.usersGroups()?.age;
+    if (this.usersStore.groupBy() === GROUP_BY.ALPHABET) {
+      return this.usersStore.groupedAlphabetically();
+    } else if (this.usersStore.groupBy() === GROUP_BY.NATIONALITY) {
+      return this.usersStore.groupedByNationality();
+    } else if (this.usersStore.groupBy() === GROUP_BY.AGE_RANGE) {
+      return this.usersStore.groupedByAge();
     }
     return {};
   });
@@ -72,7 +62,7 @@ export class UserListGroupComponent {
       return headers;
     }
 
-    return this.selectedGroupOption() === GROUP_BY.AGE_RANGE
+    return this.usersStore.groupBy() === GROUP_BY.AGE_RANGE
       ? headers
       : headers.sort();
   });
