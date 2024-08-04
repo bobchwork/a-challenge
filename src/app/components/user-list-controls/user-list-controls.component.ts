@@ -18,6 +18,9 @@ import { GROUP_BY } from '../../consts';
 import { UsersGroups } from '../../models/user.model';
 import { UsersStore } from '../../stores/users.store';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ToastrService } from 'ngx-toastr';
+import { PaginatorComponent } from '../shared/paginator/paginator.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-list-controls',
@@ -29,6 +32,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 export class UserListControlsComponent implements OnInit {
   public formBuilder = inject(FormBuilder);
   public usersStore = inject(UsersStore);
+  public router = inject(Router);
   public selectedGroup = input();
   public destroyRef = inject(DestroyRef);
   public userGroups = input<UsersGroups | null>();
@@ -47,6 +51,7 @@ export class UserListControlsComponent implements OnInit {
   });
 
   public readonly isUserGroupsLoading = computed(() => !this.userGroups());
+  private toastr = inject(ToastrService);
   constructor() {
     effect(() => {
       if (this.isUserGroupsLoading()) {
@@ -72,5 +77,6 @@ export class UserListControlsComponent implements OnInit {
 
   public clearForm(): void {
     this.searchForm.patchValue({ search: '', groupBy: '' });
+    this.toastr.success('Cleared!');
   }
 }

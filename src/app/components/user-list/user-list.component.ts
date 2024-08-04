@@ -8,12 +8,11 @@ import {
   input,
   signal,
 } from '@angular/core';
-import { User, UsersGroups } from '../../models/user.model';
+import { GROUP_BY } from '../../consts';
+import { UsersStore } from '../../stores/users.store';
 import { UserItemComponent } from '../user-item/user-item.component';
 import { UserListControlsComponent } from '../user-list-controls/user-list-controls.component';
-import { GROUP_BY } from '../../consts';
 import { UserListGroupComponent } from '../user-list-group/user-list-group.component';
-import { UsersStore } from '../../stores/users.store';
 
 @Component({
   selector: 'app-user-list',

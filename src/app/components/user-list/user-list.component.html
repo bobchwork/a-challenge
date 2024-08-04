@@ -18,7 +18,7 @@
     <article class="user-list__article">
       <p class="user-list__message">No users found.</p>
     </article>
-  } @else {
+  } @else if (isLoading()) {
     <article class="user-list__message">
       <p>Loading…</p>
     </article>

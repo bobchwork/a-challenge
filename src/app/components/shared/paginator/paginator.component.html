@@ -1,0 +1,7 @@
+<div class="paginator">
+  <div class="paginator__prev" (click)="prevClicked.emit()">Prev</div>
+  <div class="paginator__page">
+    <div class="paginator__item-wrapper">{{ currentPage() }}</div>
+  </div>
+  <div class="paginator__next" (click)="nextClicked.emit()">Next</div>
+</div>

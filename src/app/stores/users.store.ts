@@ -7,17 +7,36 @@ interface UserState {
   groups?: UsersGroups;
   groupBy?: GROUP_BY;
   searchTerm?: string;
+  currentPage: number;
+  pageSize: number;
 }
 const initialUserState: UserState = {
   users: [],
   groups: undefined,
   groupBy: undefined,
   searchTerm: '',
+  currentPage: 1,
+  pageSize: 5000,
 };
 
 // Small custom store implementation  for  keeping and sharing the state through the components
 @Injectable()
 export class UsersStore {
+  public users: WritableSignal<User[]> = signal(initialUserState.users);
+  public pageSize: WritableSignal<number> = signal(initialUserState.pageSize);
+  public currentPage: WritableSignal<number> = signal(
+    initialUserState.currentPage,
+  );
+  public groups: WritableSignal<UsersGroups | undefined> = signal(
+    initialUserState.groups,
+  );
+  public groupBy: WritableSignal<GROUP_BY | undefined> = signal(
+    initialUserState.groupBy,
+  );
+  public searchTerm: WritableSignal<string | undefined> = signal(
+    initialUserState.searchTerm,
+  );
+
   public readonly allFilteredUsers = computed(() =>
     this.fitlerUsersBySearchTerm(this.users()),
   );
@@ -65,23 +84,24 @@ export class UsersStore {
       this.groupBy() !== GROUP_BY.AGE_RANGE,
   );
 
-  public users: WritableSignal<User[]> = signal(initialUserState.users);
-  public groups: WritableSignal<UsersGroups | undefined> = signal(
-    initialUserState.groups,
-  );
-  public groupBy: WritableSignal<GROUP_BY | undefined> = signal(
-    initialUserState.groupBy,
-  );
-  public searchTerm: WritableSignal<string | undefined> = signal(
-    initialUserState.searchTerm,
-  );
-
+  /**
+   * Filters the given array of users based on the current search term.
+   *
+   * @param users - An array of User objects to be filtered.
+   * @returns A new array of User objects whose first names start with the current search term.
+   */
   private fitlerUsersBySearchTerm(users: User[]): User[] {
     return users.filter((user: User) =>
       user.firstname?.toLowerCase().startsWith(this.searchTerm()?.trim() || ''),
     );
   }
 
+  /**
+   * Filters the users within each group based on the current search term.
+   *
+   * @param group - An object where the keys are group identifiers and the values are arrays of users belonging to those groups.
+   * @returns A new object with the same keys as the input group, but with the user arrays filtered according to the search term.
+   */
   private filterGroupBySearchTerm(group: { [key: string]: User[] }): {
     [key: string]: User[];
   } {
