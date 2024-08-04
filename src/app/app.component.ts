@@ -1,5 +1,6 @@
 import {
   Component,
+  Input,
   OnInit,
   WritableSignal,
   inject,
@@ -13,16 +14,18 @@ import { UserListControlsComponent } from './components/user-list-controls/user-
 import { environment } from '../environments/environment';
 import { UsersStore } from './stores/users.store';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [UserListComponent, UserListControlsComponent],
+  imports: [UserListComponent, UserListControlsComponent, RouterModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   providers: [UsersStore],
 })
 export class AppComponent implements OnInit {
+  @Input() page?: string;
   public usersService = inject(UsersService);
   public usersStore = inject(UsersStore);
   public isLoading = false;
@@ -36,6 +39,8 @@ export class AppComponent implements OnInit {
     this.usersListWorker = new Worker(
       new URL('./workers/users-list.worker', import.meta.url),
     );
+    const page = this.page ? parseInt(this.page) : 1;
+    this.currentPage = this.page !== '' && !isNaN(page) ? page : 1;
     this.fetchUsers(this.currentPage, this.pageSize);
   }
 
@@ -54,6 +59,7 @@ export class AppComponent implements OnInit {
     // ONLY FOR DEVELOP. Not ideal, The service worker would be more efficient than this. localstorage has limitations.
 
     if (
+      (!page || page === 1) &&
       !environment.production &&
       environment.enableCache &&
       localStorage.getItem('users')

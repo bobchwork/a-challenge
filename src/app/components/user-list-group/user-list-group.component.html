@@ -43,14 +43,14 @@
           class="user-list-group__article"
           (click)="articleClick(header)"
         >
-          <cdk-virtual-scroll-viewport
+           <cdk-virtual-scroll-viewport
             itemSize="50"
             class="user-list-group__viewport"
           >
             <div
               *cdkVirtualFor="
                 let user of usersFromCurrentGroup()?.[header] ?? [];
-                index as i; length = usersFromCurrentGroup()?.[header].length
+                index as i
               "
               class="user-list-group__viewport-item"
               [ngClass]="{
@@ -71,7 +71,7 @@
                 [allUsers]="usersStore.users()"
               />
             </div>
-          </cdk-virtual-scroll-viewport>
+          </cdk-virtual-scroll-viewport> 
         </article>
       }
     }

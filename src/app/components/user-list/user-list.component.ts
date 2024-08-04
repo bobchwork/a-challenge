@@ -55,7 +55,7 @@ export class UserListComponent {
     search: string;
     groupBy: GROUP_BY;
   }): void {
-    this.usersStore.searchTerm.set(search.toLowerCase());
+    this.usersStore.searchTerm.set(search?.toLowerCase());
     this.usersStore.groupBy.set(groupBy);
   }
 }
