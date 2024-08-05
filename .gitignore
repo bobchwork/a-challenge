@@ -44,3 +44,5 @@ Thumbs.db
 # Ignore SSL certificates
 ssl/localhost.key
 ssl/localhost.crt
+
+.env
