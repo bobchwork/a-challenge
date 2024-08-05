@@ -8,7 +8,7 @@
     "build": "ng build ",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "deploy": "ng build && touch dist/a-challenge/.nojekyll && ngh --repo=https://github.com/bobchwork/a-challenge.git --base-href 'https://bobchwork.github.io/a-challenge/'"
+    "deploy": "ng build --base-href=https://bobchwork.github.io/a-challenge/ && npx ngh --dir dist/a-challenge"
   },
   "private": true,
   "dependencies": {
@@ -22,6 +22,7 @@
     "@angular/platform-browser-dynamic": "^18.0.0",
     "@angular/router": "^18.0.0",
     "@angular/service-worker": "^18.0.2",
+    "gh-pages": "^2.0.1",
     "ngx-toastr": "^19.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
