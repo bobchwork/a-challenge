@@ -8,7 +8,7 @@
     "build": "ng build ",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "deploy": "ng build && touch dist/a-challenge/.nojekyll && ngh --repo=https://github.com/bobchwork/a-challenge.git --prod --base-href 'https://bobchwork.github.io/a-challenge/'"
+    "deploy": "ng build && touch dist/a-challenge/.nojekyll && ngh --repo=https://github.com/bobchwork/a-challenge.git --base-href 'https://bobchwork.github.io/a-challenge/'"
   },
   "private": true,
   "dependencies": {
