@@ -15,6 +15,14 @@
     &__controls {
       flex-grow: 1;
     }
+    &__loader {
+      display: flex;
+      align-items: center;
+      align-content: center;
+      justify-content: center;
+      width: 100%;
+      text-align: center;
+    }
 
     @include media-breakpoint-down(m) {
       &__filter {

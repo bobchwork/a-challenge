@@ -12,6 +12,10 @@
           "/manifest.webmanifest",
           "/*.css",
           "/*.js"
+        ],
+        "urls": [
+          "https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap",
+          "https://fonts.googleapis.com/icon?family=Material+Icons"
         ]
       }
     },
@@ -29,12 +33,12 @@
   "dataGroups": [
     {
       "name": "api-images",
-      "urls": ["https://randomuser.me/api/portraits/**"],
+      "urls": ["https://randomuser.me/api/**"],
       "cacheConfig": {
-        "strategy": "freshness",
-        "maxSize": 100,
-        "maxAge": "1d",
-        "timeout": "10s"
+        "strategy": "performance",
+        "maxSize": 1000,
+        "maxAge": "1h",
+        "timeout": "5s"
       }
     }
   ]

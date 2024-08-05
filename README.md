@@ -15,8 +15,5 @@ Run `npm run dev` to run in development mode. Run `npm run start` to run with pr
 
 ## Build
 
-Run `npm run build` to build the application.
-
-## Access
-
-After deployment, your application will be accessible at: https://your-github-name.github.io/your-repo-name
+The service-worker only works with the production configuration. For it to work, Install the package http-server and build the app using
+`npm run build` to build the application. Then go to the build folder located at 'dist/a-challenge/browser' and run `http-server -p 8081` or any free port number.

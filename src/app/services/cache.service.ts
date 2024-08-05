@@ -15,7 +15,7 @@ export class CacheService {
     try {
       localStorage.setItem('users', JSON.stringify(localStorageUsers));
     } catch (error) {
-      console.log('there is an error while setting cache data', error);
+      //console.log('there is an error while setting cache data', error);
       localStorage.clear();
       localStorage.setItem('users', JSON.stringify({ [page]: users }));
     }

@@ -10,6 +10,7 @@
           (valuesChanged)="selectedValueChanged($event)"
           (nextOnClicked)="nextOnClicked.emit()"
           (prevOnClicked)="prevOnClicked.emit()"
+          [isLoading]="isLoading()"
         ></app-user-list-controls>
       </div>
     </div>
@@ -22,7 +23,9 @@
     </article>
   } @else if (isLoading()) {
     <article class="user-list__message">
-      <p>Loading…</p>
+      <div class="user-list__loader">
+        <img src="loading.gif" alt="loading.." />
+      </div>
     </article>
   }
 </div>

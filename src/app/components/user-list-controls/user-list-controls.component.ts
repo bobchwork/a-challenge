@@ -34,6 +34,7 @@ export class UserListControlsComponent implements OnInit {
   public usersStore = inject(UsersStore);
   public router = inject(Router);
   public selectedGroup = input();
+  public isLoading = input<boolean>(false);
   public destroyRef = inject(DestroyRef);
   public userGroups = input<UsersGroups | null>();
   public valuesChanged = output<{ search: string; groupBy: GROUP_BY }>();

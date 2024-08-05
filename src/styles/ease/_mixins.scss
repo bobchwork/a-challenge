@@ -296,3 +296,9 @@
   cursor: pointer;
   background-color: rgb(192, 5, 192);
 }
+
+@mixin button-disabled-style() {
+  cursor: not-allowed;
+  color: white !important;
+  background-color: #aaaaaa !important;
+}

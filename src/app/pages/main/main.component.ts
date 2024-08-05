@@ -63,6 +63,7 @@ export class MainComponent implements OnInit {
     this.usersListWorker.onmessage = (event: MessageEvent<UsersGroups>) => {
       this.usersStore.groups.set(event.data);
       this.isLoading.set(false);
+      console.log('Groups calculated.');
     };
   }
 
@@ -103,7 +104,10 @@ export class MainComponent implements OnInit {
       .subscribe((users) => {
         this.usersStore.users.set(users);
 
-        this.cacheService.setCacheData(users, page);
+        if (!environment.production && environment.enableCache) {
+          this.cacheService.setCacheData(users, page);
+        }
+
         // Worker initialization
         this.handleUsersListWorker();
       });

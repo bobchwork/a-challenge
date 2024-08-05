@@ -19,6 +19,9 @@
   &__next {
     @include button-style();
     padding: 5px 10px;
+    &--disabled {
+      @include button-disabled-style();
+    }
 
     &:hover {
       @include button-hover-style();
