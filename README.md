@@ -11,4 +11,8 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Development server
 
-Run `npm run dev` to run in development mode . Run `npm run start` to run with prod configuration
+Run `npm run dev` to run in development mode . Run `npm run start` to run with prod configuration.
+
+## Build
+
+Run `npm run build` to build the application. Run `npm run deploy` to build and deploy in github. It is necessary to install angular-cli-ghpages before running this script.
