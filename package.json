@@ -1,5 +1,5 @@
 {
-  "name": "awork-challenge",
+  "name": "a-challenge",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -8,7 +8,7 @@
     "build": "ng build ",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "deploy": "ng build && touch dist/awork-challenge/.nojekyll && ngh --repo=https://github.com/bobchwork/a-challenge.git"
+    "deploy": "ng build && touch dist/a-challenge/.nojekyll && ngh --repo=https://github.com/bobchwork/a-challenge.git"
   },
   "private": true,
   "dependencies": {
