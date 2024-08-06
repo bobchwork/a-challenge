@@ -33,12 +33,12 @@
   "dataGroups": [
     {
       "name": "api-images",
-      "urls": ["https://randomuser.me/api/**"],
+      "urls": ["https://randomuser.me/**"],
       "cacheConfig": {
         "strategy": "performance",
         "maxSize": 1000,
         "maxAge": "1h",
-        "timeout": "5s"
+        "timeout": "10s"
       }
     }
   ]
